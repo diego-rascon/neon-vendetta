@@ -4,19 +4,29 @@ using UnityEngine;
 
 public class PlayerAiming : MonoBehaviour
 {
-    public float turnSpeed = 15;
-    Camera mainCamera;
+    RaycastWeapon weapon;
 
     void Start()
     {
-        mainCamera = Camera.main;
-        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        weapon = GetComponentInChildren<RaycastWeapon>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        float yawCamera = mainCamera.transform.rotation.eulerAngles.y;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), turnSpeed * Time.fixedDeltaTime);
+        if (Input.GetButtonDown("Fire1"))
+        {
+            weapon.StartFiring();
+        }
+
+        if (weapon.isFiring)
+        {
+            weapon.UpdateFiring(Time.deltaTime);
+        }
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            weapon.StopFiring();
+        }
     }
 }

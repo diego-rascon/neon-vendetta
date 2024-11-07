@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CrosshairTarget : MonoBehaviour
 {
+    [SerializeField]
+    private LayerMask layerMask;
+
     Camera mainCamera;
     Ray ray;
     RaycastHit hitInfo;
@@ -18,7 +21,7 @@ public class CrosshairTarget : MonoBehaviour
         ray.origin = mainCamera.transform.position;
         ray.direction = mainCamera.transform.forward;
 
-        if (Physics.Raycast(ray, out hitInfo))
+        if (Physics.Raycast(ray, out hitInfo, float.MaxValue, layerMask))
         {
             transform.position = hitInfo.point;
         }

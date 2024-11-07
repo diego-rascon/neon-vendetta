@@ -18,7 +18,7 @@ public class RaycastWeapon : MonoBehaviour
     public TrailRenderer tracerEffect;
 
     public Transform raycastOrigin;
-    public Transform raycastDestinationTarget;
+    //public Transform raycastDestinationTarget;
 
     Ray ray;
     RaycastHit hitInfo;
@@ -48,7 +48,7 @@ public class RaycastWeapon : MonoBehaviour
         muzzleFlash.Emit(1);
 
         ray.origin = raycastOrigin.position;
-        ray.direction = raycastDestinationTarget.position - raycastOrigin.position;
+        //ray.direction = raycastDestinationTarget.position - raycastOrigin.position;
 
         var tracer = Instantiate(tracerEffect, ray.origin, Quaternion.identity);
         tracer.AddPosition(ray.origin);

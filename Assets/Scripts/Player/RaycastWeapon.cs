@@ -9,6 +9,9 @@ public class RaycastWeapon : MonoBehaviour
         public Vector3 initialVelocity;
     }
 
+    [SerializeField]
+    private LayerMask layerMask;
+
     public bool isFiring = false;
     public int fireRate = 29;
 
@@ -53,7 +56,7 @@ public class RaycastWeapon : MonoBehaviour
         var tracer = Instantiate(tracerEffect, ray.origin, Quaternion.identity);
         tracer.AddPosition(ray.origin);
 
-        if (Physics.Raycast(ray, out hitInfo))
+        if (Physics.Raycast(ray, out hitInfo, float.MaxValue, layerMask))
         {
             Instantiate(hitEffect, hitInfo.point + hitInfo.normal * 0.0001f, Quaternion.LookRotation(hitInfo.normal));
             tracer.transform.position = hitInfo.point;
